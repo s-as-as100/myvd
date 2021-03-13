@@ -13,5 +13,10 @@ const ListGroup = props => {
         </ul>
     )
 }
+ListGroup.defaultProps = {   // passing multiple props to another components 
+    
+    textProperty :"name" ,
+    valueProperty: "_id",
+}
  
 export default ListGroup;

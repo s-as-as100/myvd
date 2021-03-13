@@ -52,8 +52,7 @@ import ListGroup from './common/listGroup';
               <div className="row">
                   <div className="col-3">
                       <ListGroup items ={this.state.genres}
-                      valueProperty= "_id"
-                      textProperty = "name" 
+                     
                       onItemSelect= {this.handleGenreSelect}
                       />
                   </div>
