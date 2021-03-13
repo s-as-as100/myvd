@@ -3,16 +3,26 @@ import Like from './common/like';
  import { getMovies} from './../services/fakeMovieService';
 import Pagination from './common/pagination';
 import {paginate} from './utils/paginate';
+import { getGenres } from '../services/fakeGenreService';
+import ListGroup from './common/listGroup';
 
  class Movies extends Component {
      state = { 
-         movies: getMovies(),
+         movies: [],
+         genres: [],
          currentPage: 1,
          pageSize : 4
       };
 
+      componentDidMount() {
+          this.setState({movies: getMovies(), genres: getGenres()})
+      }
+
       handlePageChange = page => {
        this.setState({currentPage: page});
+      }
+      handleGenreSelect = genre => {
+          console.log(genre)
       }
       handleDelete = movie => {
            
@@ -39,7 +49,15 @@ import {paginate} from './utils/paginate';
          if (count === 0) return <p>There are no movies in the database</p>;
          const movies = paginate(allMovies, currentPage,pageSize)
          return(
-              <React.Fragment>
+              <div className="row">
+                  <div className="col-3">
+                      <ListGroup items ={this.state.genres}
+                      valueProperty= "_id"
+                      textProperty = "name" 
+                      onItemSelect= {this.handleGenreSelect}
+                      />
+                  </div>
+                  <div className="col">
                   <p>Showing {count} movies in the database</p>
              <table className="table">
                  <thead>
@@ -67,14 +85,15 @@ import {paginate} from './utils/paginate';
                  </tbody>
              </table>
              <Pagination 
-             itemsCount = "abc" //{count} 
+             itemsCount =  {count} 
              pageSize = {pageSize} 
              currentPage = {currentPage}
              onPageChange = {this.handlePageChange}
              />
              
              {/* // this.state.movies.length = count */}
-             </React.Fragment>
+                  </div>
+              </div>
          )
         
      }
