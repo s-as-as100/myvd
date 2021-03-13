@@ -22,7 +22,7 @@ import ListGroup from './common/listGroup';
        this.setState({currentPage: page});
       }
       handleGenreSelect = genre => {
-          console.log(genre)
+          this.setState({selectedGenre : genre})  // whenever component state is updated all children  component is re-render
       }
       handleDelete = movie => {
            
@@ -52,7 +52,7 @@ import ListGroup from './common/listGroup';
               <div className="row">
                   <div className="col-3">
                       <ListGroup items ={this.state.genres}
-                     
+                     selectedItem ={this.state.selectedGenre}
                       onItemSelect= {this.handleGenreSelect}
                       />
                   </div>
