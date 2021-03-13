@@ -67,7 +67,7 @@ import {paginate} from './utils/paginate';
                  </tbody>
              </table>
              <Pagination 
-             itemsCount = {count} 
+             itemsCount = "abc" //{count} 
              pageSize = {pageSize} 
              currentPage = {currentPage}
              onPageChange = {this.handlePageChange}

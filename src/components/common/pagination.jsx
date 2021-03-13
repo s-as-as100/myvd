@@ -1,10 +1,11 @@
 import React from 'react'
 import _ from 'lodash';
+import Proptypes from 'prop-types'; // caches the bug using the PropTypes 
 // Lodash is a JavaScript library which provides utility functions for common programming tasks. 
 // It uses functional programming paradigm. ... Lodash helps programmers write more concise and 
 // easier to maintain JavaScript code.
 //  Lodash contains tools to simplify programming with strings, numbers, arrays, functions and objects.
-const Pagination = props => {
+const Pagination = props => {  // type checking requirement of this function
     const {itemsCount, pageSize,onPageChange, currentPage} = props;
     const pagesCount = Math.ceil(itemsCount / pageSize);
     if( pagesCount=== 1) return null;
@@ -24,5 +25,12 @@ const Pagination = props => {
 </nav>
     )
 }
+
+// Pagination.propTypes = {
+// itemsCount:propTypes.number.isRequired,
+// pageSize:propTypes.number.isRequired,
+// currentPage:propTypes.number.isRequired,
+// onPageChange:propTypes.func.isRequired
+// }
  
 export default Pagination;
