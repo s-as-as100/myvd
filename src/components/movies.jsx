@@ -26,6 +26,10 @@ import MOviesTable from './moviesTable';
       handleGenreSelect = genre => {
           this.setState({selectedGenre : genre, currentPage: 1})  // whenever component state is updated all children  component is re-render
       }
+
+      handleSort = path => {
+          console.log(path)
+      }
       handleDelete = movie => {
            
         const movies = this.state.movies.filter(m => m._id !== movie._id);
@@ -61,13 +65,17 @@ import MOviesTable from './moviesTable';
                   </div>
                   <div className="col">
                   <p>Showing {filtered.length} movies in the database</p>
-                  <MOviesTable movies = {movies} onLike={this.handleLike} onDelete={this.handleDelete}  />
+                  <MOviesTable movies = {movies} 
+                  onLike={this.handleLike} 
+                  onDelete={this.handleDelete} 
+                  onSort = {this.handleSort} />
            
              <Pagination 
              itemsCount =  {filtered.length} 
              pageSize = {pageSize} 
              currentPage = {currentPage}
              onPageChange = {this.handlePageChange}
+            
              />
              
              {/* // this.state.movies.length = count */}
