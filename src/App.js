@@ -6,10 +6,13 @@ import './App.css';
 import NotFound from './components/common/not-found';
 import Rental from './components/common/rental';
 import Customers from './components/common/customers';
+import NavBar from './components/navBar';
+ 
 class App extends Component {
   render() {
     return (
-       
+      <React.Fragment>
+       <NavBar />
       <main className='container'>
          <Switch>
        <Route path="/movies" component={Movies}></Route>
@@ -20,6 +23,7 @@ class App extends Component {
        <Redirect to="/not-found"/>
        </Switch>
       </main>
+      </React.Fragment>
     )
   }
 }
