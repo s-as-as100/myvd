@@ -5,7 +5,7 @@ import Pagination from './common/pagination';
 import {paginate} from './utils/paginate';
 import { getGenres } from '../services/fakeGenreService';
 import ListGroup from './common/listGroup';
-import MOviesTable from './moviesTable';
+ 
 import _ from 'lodash';
 
  class Movies extends Component {
@@ -30,15 +30,8 @@ import _ from 'lodash';
            // whenever component state is updated all children  component is re-render
       }
 
-      handleSort = path => {
-        const sortColumn = {...this.state.sortColumn};
-        if (sortColumn=== path)
-        sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc';
-        else {
-            sortColumn.path = path;
-            sortColumn.order = 'asc';
-
-        }                                   // create a new object using spread operator
+      handleSort = sortColumn => {
+                                       // create a new object using spread operator
           this.setState({sortColumn})
       }
       handleDelete = movie => {
@@ -82,7 +75,8 @@ import _ from 'lodash';
                   </div>
                   <div className="col">
                   <p>Showing {filtered.length} movies in the database</p>
-                  <MOviesTable movies = {movies} 
+                  <MoviesTable movies = {movies} 
+                  sortColumn={sortColumn}
                   onLike={this.handleLike} 
                   onDelete={this.handleDelete} 
                   onSort = {this.handleSort} />
