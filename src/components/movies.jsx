@@ -5,8 +5,10 @@ import Pagination from './common/pagination';
 import {paginate} from './utils/paginate';
 import { getGenres } from '../services/fakeGenreService';
 import ListGroup from './common/listGroup';
+
  
 import _ from 'lodash';
+import navBar from './navBar';
 
  class Movies extends Component {
      state = { 
@@ -88,6 +90,7 @@ import _ from 'lodash';
              onPageChange = {this.handlePageChange}
             
              />
+             <navBar/>
              
              {/* // this.state.movies.length = count */}
                   </div>
