@@ -15,14 +15,15 @@ import ListGroup from './common/listGroup';
       };
 
       componentDidMount() {
-          this.setState({movies: getMovies(), genres: getGenres()})
+          const genres = [ {name:'All Genres'}, ...getGenres()]
+          this.setState({movies: getMovies(), genres})
       }
 
       handlePageChange = page => {
        this.setState({currentPage: page});
       }
       handleGenreSelect = genre => {
-          this.setState({selectedGenre : genre})  // whenever component state is updated all children  component is re-render
+          this.setState({selectedGenre : genre, currentPage: 1})  // whenever component state is updated all children  component is re-render
       }
       handleDelete = movie => {
            
@@ -47,7 +48,7 @@ import ListGroup from './common/listGroup';
          const { length: count } = this.state.movies;
          const {currentPage, pageSize, selectedGenre, movies: allMovies} = this.state;
          if (count === 0) return <p>There are no movies in the database</p>;
-         const filtered = selectedGenre ? allMovies.filter(m => m.genre._id === selectedGenre._id) : allMovies;
+         const filtered = selectedGenre && selectedGenre._id ? allMovies.filter(m => m.genre._id === selectedGenre._id) : allMovies;
          const movies = paginate(filtered, currentPage,pageSize)
          return(
               <div className="row">
