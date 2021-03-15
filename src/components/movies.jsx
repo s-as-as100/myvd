@@ -6,17 +6,19 @@ import {paginate} from './utils/paginate';
 import { getGenres } from '../services/fakeGenreService';
 import ListGroup from './common/listGroup';
 import MOviesTable from './moviesTable';
+import _ from 'lodash';
 
  class Movies extends Component {
      state = { 
          movies: [],
          genres: [],
          currentPage: 1,
-         pageSize : 4
+         pageSize : 4,
+         sortColumn: {path: 'title' , order:'asc'}
       };
 
       componentDidMount() {
-          const genres = [ {name:'All Genres'}, ...getGenres()]
+          const genres = [  { _id: '' ,name:'All Genres'}, ...getGenres()]
           this.setState({movies: getMovies(), genres})
       }
 
@@ -24,11 +26,20 @@ import MOviesTable from './moviesTable';
        this.setState({currentPage: page});
       }
       handleGenreSelect = genre => {
-          this.setState({selectedGenre : genre, currentPage: 1})  // whenever component state is updated all children  component is re-render
+          this.setState({selectedGenre : genre, currentPage: 1}) 
+           // whenever component state is updated all children  component is re-render
       }
 
       handleSort = path => {
-          console.log(path)
+        const sortColumn = {...this.state.sortColumn};
+        if (sortColumn=== path)
+        sortColumn.order = (sortColumn.order === 'asc') ? 'desc' : 'asc';
+        else {
+            sortColumn.path = path;
+            sortColumn.order = 'asc';
+
+        }                                   // create a new object using spread operator
+          this.setState({sortColumn})
       }
       handleDelete = movie => {
            
@@ -51,10 +62,16 @@ import MOviesTable from './moviesTable';
      render() { 
          
          const { length: count } = this.state.movies;
-         const {currentPage, pageSize, selectedGenre, movies: allMovies} = this.state;
+         const {currentPage, pageSize, selectedGenre, sortColumn,  movies: allMovies} = this.state;
          if (count === 0) return <p>There are no movies in the database</p>;
-         const filtered = selectedGenre && selectedGenre._id ? allMovies.filter(m => m.genre._id === selectedGenre._id) : allMovies;
-         const movies = paginate(filtered, currentPage,pageSize)
+         const filtered =
+          selectedGenre && selectedGenre._id ? 
+          allMovies.filter(m => m.genre._id === selectedGenre._id) :
+           allMovies;
+
+         const sorted =  _.orderBy(filtered,[sortColumn.path] , [sortColumn.order]);
+              // it return new Array
+         const movies = paginate(sorted, currentPage,pageSize)
          return(
               <div className="row">
                   <div className="col-3">

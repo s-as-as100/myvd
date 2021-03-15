@@ -8,7 +8,7 @@ import Like from './common/like';
             <tr>
                 <th onClick={()=> onSort('title')}>Title</th>
                 <th onClick={() => onSort('genre.name')}>Genre</th>
-                <th onClick={() =>onSort('numberInStock')}>Stock</th>
+                <th onClick={() => onSort('numberInStock')}>Stock</th>
                 <th onClick={() => onSort('dailyRentalRate')}>Rate</th>
                 <th>Like</th>
                 <th></th>
